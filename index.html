@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Fundamental Concepts of NLP</title>
+    <link rel="icon" type="image/png" href="media/images.png">
+    <!-- MathJax for LaTeX-style formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0a0a;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 3px solid #76b900;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #b0b0b0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section with Image */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 60px 20px;
+            background: #1a1a1a;
+            margin: 40px 0;
+            border-radius: 10px;
+        }
+
+        .hero-content h2 {
+            font-size: 2.2em;
+            color: #76b900;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.1em;
+            color: #d0d0d0;
+            line-height: 1.8;
+        }
+
+        /* Hero Image - NLP Visualization */
+        .hero-image {
+            width: 100%;
+            height: auto;
+            min-height: 350px;
+            background: #2d2d2d;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        /* Example Corpus Section */
+        .corpus-section {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 40px 0;
+            border-left: 5px solid #76b900;
+        }
+
+        .corpus-section h2 {
+            font-size: 2em;
+            color: #76b900;
+            margin-bottom: 20px;
+        }
+
+        .corpus-section ol {
+            list-style-position: inside;
+            font-size: 1.1em;
+            color: #d0d0d0;
+        }
+
+        .corpus-section ol li {
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .corpus-section ol li:last-child {
+            border-bottom: none;
+        }
+
+        /* Technique Cards */
+        .technique-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 10px;
+            border: 1px solid #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .technique-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(118, 185, 0, 0.2);
+        }
+
+        .technique-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .technique-number {
+            background: #76b900;
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .technique-card h2 {
+            font-size: 2em;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .technique-card h3 {
+            font-size: 1.4em;
+            color: #76b900;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .technique-card p {
+            color: #d0d0d0;
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+
+        /* Code Blocks */
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: #0a0a0a;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #76b900;
+            border: 1px solid #333;
+        }
+
+        pre {
+            background-color: #0a0a0a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #333;
+            margin: 15px 0;
+        }
+
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: #d0d0d0;
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 20px;
+            color: #d0d0d0;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* Notes Box */
+        .notes {
+            background: #252525;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #76b900;
+            margin-top: 20px;
+        }
+
+        .notes b {
+            color: #76b900;
+            font-size: 1.1em;
+        }
+
+        .notes ul {
+            margin-top: 10px;
+        }
+
+        /* Image Containers for Technique Cards */
+        .image-container {
+            width: 100%;
+            background: #2d2d2d;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 2px solid #444;
+        }
+
+        /* BoW Image Container - Wide landscape */
+        .bow-image-container {
+            height: auto;
+            min-height: 280px;
+        }
+
+        /* TF-IDF Image Container - Wide landscape */
+        .tfidf-image-container {
+            height: auto;
+            min-height: 320px;
+        }
+
+        /* Word2Vec Image Container - Shorter landscape */
+        .word2vec-image-container {
+            height: auto;
+            min-height: 220px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* Comparison Table */
+        .table-container {
+            overflow-x: auto;
+            margin: 40px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 18px;
+            text-align: left;
+            border: 1px solid #333;
+        }
+
+        th {
+            background: #76b900;
+            color: #000;
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+
+        td {
+            color: #d0d0d0;
+            vertical-align: top;
+        }
+
+        tbody tr:hover {
+            background: #252525;
+        }
+
+        /* Final Summary */
+        .final-summary {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 40px;
+            border-radius: 10px;
+            border: 2px solid #76b900;
+            margin: 40px 0;
+        }
+
+        .final-summary h3 {
+            color: #76b900;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .final-summary ul {
+            font-size: 1.1em;
+        }
+
+        .final-summary ul li {
+            padding: 10px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .technique-card h2 {
+                font-size: 1.5em;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 12px;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .technique-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Main Fundamental Concepts of NLP</h1>
+        <p>Understanding Text Representation: From Basic Counting to Semantic Understanding</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h2>Natural Language Processing</h2>
+                <p>Explore the fundamental techniques that transform human language into machine-understandable representations. From simple word counting to advanced semantic embeddings, these methods form the backbone of modern NLP applications.</p>
+            </div>
+            <div class="hero-image">
+                <img src="media/NLP_IMAGE.jpg" alt="Natural Language Processing Visualization">
+            </div>
+        </div>
+
+        <!-- Example Corpus -->
+        <div class="corpus-section">
+            <h2>Example Text Corpus</h2>
+            <ol>
+                <li>Machine learning is fascinating</li>
+                <li>Deep learning advances machine learning</li>
+                <li>Natural language processing uses machine learning</li>
+            </ol>
+        </div>
+
+        <!-- Technique 1: Bag of Words -->
+        <div class="technique-card">
+            <div class="technique-header">
+                <div class="technique-number">1</div>
+                <h2>Bag of Words (BoW)</h2>
+            </div>
+
+            <div class="image-container bow-image-container">
+                <img src="media/BoW_image.png" alt="Bag of Words Visualization">
+            </div>
+
+            <h3>Concept</h3>
+            <p>The Bag of Words model converts text into numerical features by counting word occurrences. It ignores grammar and word order but keeps frequency information. Each unique word in the corpus becomes a feature, creating a vocabulary-based vector representation.</p>
+
+            <h3>Vocabulary</h3>
+            <pre><code>["advances", "deep", "fascinating", "is", "language", "learning", "machine", "natural", "processing", "uses"]</code></pre>
+
+            <h3>Example</h3>
+            <p>Sentence: <code>"Machine learning is fascinating"</code><br>
+            Tokens: ["machine", "learning", "is", "fascinating"]</p>
+
+            <h3>Vector Representation</h3>
+            <pre><code>Sentence 1: "Machine learning is fascinating"
+[0, 0, 1, 1, 0, 1, 1, 0, 0, 0]
+
+Sentence 2: "Deep learning advances machine learning"
+[1, 1, 0, 0, 0, 1, 1, 0, 0, 0]
+
+Sentence 3: "Natural language processing uses machine learning"
+[0, 0, 0, 0, 1, 1, 1, 1, 1, 1]</code></pre>
+
+            <div class="notes">
+                <b>Key Points:</b>
+                <ul>
+                    <li>Only word counts matter - no context or meaning captured</li>
+                    <li>"learning" appears in all sentences with a count of 1</li>
+                    <li>No sense of word order or grammar</li>
+                    <li>Creates sparse vectors (many zeros)</li>
+                    <li>Simple and fast but loses semantic information</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Technique 2: TF-IDF -->
+        <div class="technique-card">
+            <div class="technique-header">
+                <div class="technique-number">2</div>
+                <h2>TF-IDF (Term Frequency–Inverse Document Frequency)</h2>
+            </div>
+
+            <div class="image-container tfidf-image-container">
+                <img src="media/1_V9ac4hLVyms79jl65Ym_Bw.png" alt="TF-IDF Visualization">
+            </div>
+
+            <h3>Concept</h3>
+            <p>TF-IDF measures how important a word is in a document relative to the entire corpus. Common words that appear in many documents get low scores, while unique words that appear in few documents get high scores. This helps identify distinctive terms for each document.</p>
+
+            <h3>Formula</h3>
+            <p>$$ \text{TF-IDF}(t, d) = \text{TF}(t, d) \times \log\left(\frac{N}{n_t}\right) $$</p>
+            <p>Where:</p>
+            <ul>
+                <li><strong>TF(t, d)</strong> = Term Frequency of term <em>t</em> in document <em>d</em></li>
+                <li><strong>N</strong> = Total number of documents</li>
+                <li><strong>n<sub>t</sub></strong> = Number of documents containing term <em>t</em></li>
+            </ul>
+
+            <h3>Example Calculation</h3>
+            <p>Suppose the word "fascinating" appears once in a 4-word document and appears in only 1 out of 3 documents:</p>
+            <pre><code>TF(fascinating) = 1 / 4 = 0.25
+IDF(fascinating) = log(3 / 1) = 1.098
+TF-IDF = 0.25 × 1.098 = 0.2745</code></pre>
+
+            <h3>Vector Representation (Approximate Values)</h3>
+            <pre><code>Sentence 1:
+[0, 0, 0.58, 0.46, 0, 0.40, 0.40, 0, 0, 0]
+
+Sentence 2:
+[0.58, 0.58, 0, 0, 0, 0.33, 0.33, 0, 0, 0]
+
+Sentence 3:
+[0, 0, 0, 0, 0.37, 0.29, 0.29, 0.37, 0.37, 0.37]</code></pre>
+
+            <div class="notes">
+                <b>Key Points:</b>
+                <ul>
+                    <li>"fascinating" (unique word) has high weight → 0.58</li>
+                    <li>"learning" and "machine" (common words) have lower weight → 0.29–0.40</li>
+                    <li>Produces weighted sparse vectors</li>
+                    <li>Highlights document-specific and unique terms</li>
+                    <li>Better than BoW for information retrieval tasks</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Technique 3: Word2Vec -->
+        <div class="technique-card">
+            <div class="technique-header">
+                <div class="technique-number">3</div>
+                <h2>Word2Vec (Semantic Embeddings)</h2>
+            </div>
+
+            <div class="image-container word2vec-image-container">
+                <img src="media/word2vec_image.webp" alt="Word2Vec Visualization">
+            </div>
+
+            <h3>Concept</h3>
+            <p>Word2Vec learns dense numeric representations of words (embeddings) by analyzing their contexts in large text corpora. Words that occur in similar surroundings end up with similar vectors in a multi-dimensional space. It uses either the <b>Skip-Gram</b> (predict context from word) or <b>CBOW</b> (Continuous Bag of Words - predict word from context) approach.</p>
+
+            <h3>How It Works</h3>
+            <p>Word2Vec creates dense vectors (typically 100–300 dimensions) where semantic relationships are encoded geometrically. Similar words have vectors that point in similar directions, and mathematical operations on vectors preserve meaningful relationships.</p>
+
+            <h3>Example Context Learning</h3>
+            <p>Sentence: <code>"The king and queen rule the kingdom"</code><br>
+            Both "king" and "queen" appear in similar contexts (with words like "rule" and "kingdom"), so their vectors become similar in the embedding space.</p>
+
+            <h3>Individual Word Vectors (First 5 of ~100 dimensions)</h3>
+            <pre><code>Word         Vector Representation
+machine      [ 0.12, -0.23,  0.44,  0.01, -0.35, ...]
+learning     [ 0.15, -0.20,  0.47,  0.05, -0.30, ...]
+deep         [ 0.42, -0.55,  0.33,  0.12, -0.09, ...]
+natural      [-0.18,  0.22,  0.66, -0.04,  0.20, ...]
+processing   [-0.15,  0.25,  0.63, -0.03,  0.18, ...]</code></pre>
+
+            <h3>Semantic Relationships</h3>
+            <p>Each vector encodes semantic relationships, enabling powerful operations:</p>
+            <ul>
+                <li><code>cosine_similarity("machine", "learning")</code> → high similarity (words used together)</li>
+                <li><code>cosine_similarity("machine", "banana")</code> → low similarity (unrelated concepts)</li>
+                <li>Vector arithmetic: <code>king - man + woman ≈ queen</code></li>
+                <li>Finding analogies: <code>Paris - France + Italy ≈ Rome</code></li>
+            </ul>
+
+            <div class="notes">
+                <b>Key Points:</b>
+                <ul>
+                    <li>Dense vectors (every dimension has a non-zero value)</li>
+                    <li>Meaningful geometry — direction and distance encode semantic relationships</li>
+                    <li>Learned automatically from large text corpora (requires substantial data)</li>
+                    <li>Captures context and semantic meaning, not just frequency</li>
+                    <li>Enables transfer learning and powers many modern NLP applications</li>
+                    <li>Can handle synonyms and word analogies naturally</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="technique-card">
+            <h2>Comprehensive Comparison</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Technique</th>
+                            <th>Representation Type</th>
+                            <th>What It Captures</th>
+                            <th>Example Vector</th>
+                            <th>Advantages</th>
+                            <th>Limitations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Bag of Words</b></td>
+                            <td>Sparse count vector</td>
+                            <td>Word presence and frequency</td>
+                            <td><code>[0, 0, 1, 1, 0, ...]</code></td>
+                            <td>Simple, fast, interpretable, works well for small datasets</td>
+                            <td>Ignores meaning, context, word order, and semantic relationships</td>
+                        </tr>
+                        <tr>
+                            <td><b>TF-IDF</b></td>
+                            <td>Weighted sparse vector</td>
+                            <td>Word importance relative to corpus</td>
+                            <td><code>[0.58, 0, 0.33, ...]</code></td>
+                            <td>Highlights unique words, reduces common word impact, better for search and classification</td>
+                            <td>Still ignores semantic meaning, context, and word relationships</td>
+                        </tr>
+                        <tr>
+                            <td><b>Word2Vec</b></td>
+                            <td>Dense semantic vector</td>
+                            <td>Contextual meaning and semantic relations</td>
+                            <td><code>[0.12, -0.23, 0.44, ...]</code></td>
+                            <td>Captures deep semantics, enables analogies, context-aware, supports transfer learning</td>
+                            <td>Requires large datasets, computationally expensive to train, less interpretable</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Final Summary -->
+        <div class="final-summary">
+            <h3>Summary</h3>
+            <ul>
+                <li><b>Bag of Words</b> counts words and creates simple frequency-based representations — great for basic text analysis</li>
+                <li><b>TF-IDF</b> values words by their importance across documents — ideal for information retrieval and document classification</li>
+                <li><b>Word2Vec</b> understands words through learned semantic relationships and contextual meaning — powers advanced NLP applications like sentiment analysis, machine translation, and question answering</li>
+            </ul>
+            <p style="margin-top: 20px; color: #b0b0b0; font-style: italic;">
+                The evolution from BoW to Word2Vec represents the journey from simple statistical methods to deep learning approaches in Natural Language Processing, each serving different use cases and computational requirements.
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // Smooth scroll animation for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.technique-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Add interactive hover effects
+        document.querySelectorAll('.technique-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderColor = '#76b900';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.borderColor = '#333';
+            });
+        });
+
+        // Animate corpus section
+        const corpusSection = document.querySelector('.corpus-section');
+        if (corpusSection) {
+            corpusSection.style.opacity = '0';
+            corpusSection.style.transform = 'translateY(20px)';
+            corpusSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(corpusSection);
+        }
+
+        // Animate hero section
+        const heroSection = document.querySelector('.hero-section');
+        if (heroSection) {
+            heroSection.style.opacity = '0';
+            heroSection.style.transform = 'translateY(20px)';
+            heroSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(heroSection);
+        }
+    </script>
+
+</body>
+</html>
