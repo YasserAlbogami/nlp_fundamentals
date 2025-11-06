@@ -51,4 +51,4 @@ This resource is perfect for:
 
 ## 🌐 Live Page
 
-**Visit:** [https://yasseralbogami.github.io/nlp-fundamentals](https://yasseralbogami.github.io/nlp-fundamentals)
+**Visit:** [https://yasseralbogami.github.io/nlp-fundamentals]([https://yasseralbogami.github.io/nlp-fundamentals](https://yasseralbogami.github.io/nlp_fundamentals/))
